@@ -1,4 +1,4 @@
-Project made at Rocketseat Next Level Week - Setup.
+Project made at Rocketseat Next Level Week - Setup.<br/>
 The goal was to build an app to record and monitor their habits.
 
 <a href="https://github.com/VitorHUMoreira/setup-web" target="_blank">Web</a> || <a href="https://github.com/VitorHUMoreira/setup-server" target="_blank">Server</a>
