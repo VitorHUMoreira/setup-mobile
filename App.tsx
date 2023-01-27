@@ -1,4 +1,5 @@
 import "./src/libs/dayjs";
+import * as Notifications from "expo-notifications";
 import { StatusBar } from "react-native";
 import {
   useFonts,
@@ -9,6 +10,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { Loading } from "./src/components/Loading";
 import { Routes } from "./src/routes";
+import { useEffect } from "react";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,6 +19,30 @@ export default function App() {
     Inter_700Bold,
     Inter_800ExtraBold,
   });
+
+  async function schedulePushNotification() {
+    const schedule = await Notifications.getAllScheduledNotificationsAsync();
+    console.log("Agendadas: ", schedule);
+
+    if (schedule.length > 0) {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+    }
+
+    const trigger = new Date(Date.now());
+    trigger.setMinutes(trigger.getMinutes() + 1);
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Salve meu rei! 👑",
+        body: "Já praticou seus hábitos hoje?",
+      },
+      trigger,
+    });
+  }
+
+  useEffect(() => {
+    schedulePushNotification();
+  }, []);
 
   if (!fontsLoaded) {
     return <Loading />;
